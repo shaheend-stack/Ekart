@@ -42,7 +42,7 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script{
-                    withDockerRegistry(credentialsId: '2fe19d8a-3d12-4b82-ba20-9d22e6bf1672', toolName: 'docker') {
+                    withDockerRegistry(credentialsId: 'b4a06e38-af6f-4ec7-b07b-f7f69ff4a0c5', toolName: 'docker') {
                         
                         sh "docker build -t shopping-cart -f docker/Dockerfile ."
                         sh "docker tag  shopping-cart adijaiswal/shopping-cart:latest"
