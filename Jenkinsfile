@@ -23,7 +23,28 @@ pipeline {
         }
         
         
-        // stage('Sonarqube') {
+
+        
+        stage('Build') {
+            steps {
+                sh "mvn clean package -DskipTests=true"
+            }
+        }
+        
+        // stage('Docker Build & Push') {
+        //     steps {
+        //         script{
+        //             withDockerRegistry(credentialsId: 'b4a06e38-af6f-4ec7-b07b-f7f69ff4a0c5', toolName: 'docker') {
+                        
+        //                 sh "docker build -t shopping-cart -f docker/Dockerfile ."
+        //                 sh "docker tag  shopping-cart shaheend/shopping-cart:latest"
+        //                 sh "docker push shaheend/shopping-cart:latest"
+        //             }
+        //         }
+        //     }
+        // }
+
+                // stage('Sonarqube') {
         //     steps {
         //         withSonarQubeEnv('sonar-server'){
         //            sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Shopping-Cart \
@@ -32,25 +53,6 @@ pipeline {
         //        }
         //     }
         // }
-        
-        stage('Build') {
-            steps {
-                sh "mvn clean package -DskipTests=true"
-            }
-        }
-        
-        stage('Docker Build & Push') {
-            steps {
-                script{
-                    withDockerRegistry(credentialsId: 'b4a06e38-af6f-4ec7-b07b-f7f69ff4a0c5', toolName: 'docker') {
-                        
-                        sh "docker build -t shopping-cart -f docker/Dockerfile ."
-                        sh "docker tag  shopping-cart shaheend/shopping-cart:latest"
-                        sh "docker push shaheend/shopping-cart:latest"
-                    }
-                }
-            }
-        }
         
         
     }
